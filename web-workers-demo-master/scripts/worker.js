@@ -1,18 +1,20 @@
 importScripts('imageManips.js');
 
-this.onmessage = function (e) {
+this.onmessage = function(e) {
+    console.log("Message Received by Worker");
   var imageData = e.data.imageData;
   var type = e.data.type;
-    console.log("HEY");
+  
   try {
     length = imageData.data.length / 4;
-    var manipulatePixel = getManipFunc(type);
+    var manipImage = manipulate(type);
+    console.log(manipImage);
     for (i = j = 0, ref = length; 0 <= ref ? j <= ref : j >= ref; i = 0 <= ref ? ++j : --j) {
       r = imageData.data[i * 4 + 0];
       g = imageData.data[i * 4 + 1];
       b = imageData.data[i * 4 + 2];
       a = imageData.data[i * 4 + 3];
-      pixel = manipulatePixel(r, g, b, a);
+      pixel = manipImage(r, g, b, a);
       imageData.data[i * 4 + 0] = pixel[0];
       imageData.data[i * 4 + 1] = pixel[1];
       imageData.data[i * 4 + 2] = pixel[2];
